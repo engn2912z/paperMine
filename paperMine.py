@@ -8,6 +8,24 @@ import pandas as pd
 # import numpy as np
 # import matplotlib.pyplot as plt
 
+try:
+    f=open('.email')
+    email=f.read().split('\n')[0]
+    f.close()
+except:
+    email=input('email address:')
+    with open('.email','w') as f1:
+        f1.write(email)
+
+try:
+    f=open('.foldername')
+    foldername=f.read().split('\n')[0]
+    f.close()
+except:
+    foldername=input('PDF folder path:')
+    with open('.foldername','w') as f1:
+        f1.write(foldername)
+
 def parseDOI(DOI: str):
     URL = 'https://api.crossref.org/works/'+DOI
     response=requests.get(URL).json()
@@ -39,8 +57,8 @@ def parseDOI(DOI: str):
 # pdfs=[foldername+filename for filename in downloads if filename.endswith('.pdf')]
 # len(pdfs)
 
-email = 'rashid_zia@brown.edu'
-foldername = '/Users/rashidzia/Google Drive/Izzy UTRA /PSC Papers Sample'
+# email = 'rashid_zia@brown.edu'
+# foldername = '/Users/rashidzia/Google Drive/Izzy UTRA /PSC Papers Sample'
 
 print('searching recursively through ',foldername,' for all *.pdf files')
 pdfs=[os.path.join(dp, f) for dp, dn, fn in os.walk(foldername) for f in fn if f.endswith('.pdf')]
